@@ -1,0 +1,74 @@
+.container{
+    height:100vh;
+    padding: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+     background-color: black;
+
+}
+
+.form{
+    /* background-color: red; */
+    padding: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    align-items: flex-start;
+    
+}
+
+.inp{
+    height: 40px;
+    width: 270px;
+    
+}
+
+.btn{
+    border-radius: 10px;
+    font-weight: 2;
+    background-color: aqua;
+    cursor: pointer;
+}
+
+.btn:hover{
+    background-color:lawngreen;
+}
+
+.not-found{
+    color: wheat;
+    text-align: center;
+}
+
+a{
+    color: blueviolet;
+}
+
+.Success{
+    color: black;
+    border-radius: 5%;
+    padding: 10px;
+    background-color: green;
+    width: 100%;
+    opacity: 1;
+}
+
+.invisible-msg{
+    border-radius: 5%;
+    padding: 10px;
+    width: 100%;
+    opacity: 0;
+    display: none;
+}
+
+
+
+.error{
+color:red;
+    border-radius: 5%;
+    padding: 10px;
+    background-color: rgb(150, 4, 4);
+    width: 100%;
+    opacity: 1;
+}
