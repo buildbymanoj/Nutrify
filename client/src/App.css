@@ -1,14 +1,14 @@
-.container{
-    height:100vh;
+.container {
+    height: 100vh;
     padding: 30px;
     width: 100%;
     display: flex;
     align-items: center;
-     background-color: black;
+    background-color: black;
 
 }
 
-.form{
+.form {
     /* background-color: red; */
     padding: 20px;
     color: white;
@@ -16,36 +16,36 @@
     flex-direction: column;
     row-gap: 10px;
     align-items: flex-start;
-    
+
 }
 
-.inp{
+.inp {
     height: 40px;
     width: 270px;
-    
+
 }
 
-.btn{
+.btn {
     border-radius: 10px;
     font-weight: 2;
     background-color: aqua;
     cursor: pointer;
 }
 
-.btn:hover{
-    background-color:lawngreen;
+.btn:hover {
+    background-color: lawngreen;
 }
 
-.not-found{
+.not-found {
     color: wheat;
     text-align: center;
 }
 
-a{
+a {
     color: blueviolet;
 }
 
-.Success{
+.Success {
     color: black;
     border-radius: 5%;
     padding: 10px;
@@ -54,7 +54,7 @@ a{
     opacity: 1;
 }
 
-.invisible-msg{
+.invisible-msg {
     border-radius: 5%;
     padding: 10px;
     width: 100%;
@@ -64,11 +64,25 @@ a{
 
 
 
-.error{
-color:red;
+.error {
+    color: red;
     border-radius: 5%;
     padding: 10px;
     background-color: rgb(150, 4, 4);
     width: 100%;
     opacity: 1;
+}
+
+.header {
+    color: rgb(255, 0, 0);
+    padding: 10px;
+    width: 100%;
+    background-color: blue;
+    align-items: center;
+    column-gap: 70px;
+    display: flex;
+}
+
+.header:hover {
+    cursor: pointer;
 }

@@ -1,6 +1,10 @@
-import { useState } from "react";
-import { Link ,useNavigate} from "react-router-dom";
+import { useState, useContext } from "react";
+import { UserContext } from "../Contexts/UserContext";
+import { Link, useNavigate } from "react-router-dom";
+
 function Login() {
+
+    const { setLoggedUser } = useContext(UserContext);
 
     const [userCreds, setuserCreds] = useState({
         email: '',
@@ -23,7 +27,7 @@ function Login() {
 
     function handleSubmit(event) {
         event.preventDefault();
-        console.log(userCreds)
+        //   console.log(userCreds)
 
         fetch('http://localhost:8000/login', {
             method: "POST",
@@ -32,40 +36,46 @@ function Login() {
                 "Content-Type": "application/json"
             }
         })
-             
+
             .then((response) => {
-                if(response.status===404){
-                    setMessage({type:"error",text:"username or email not exist"})
+                if (response.status === 404) {
+                    setMessage({ type: "error", text: "username or email not exist" })
                 }
 
-                else if(response.status===403){
-                    setMessage({type:"error",text:"incorrect password"})
+                else if (response.status === 403) {
+                    setMessage({ type: "error", text: "incorrect password" })
                 }
-                else if(response.status===200){
-                    setMessage({type:"Success",text:"Login Successful"})
-                   return response.json()
+                else if (response.status === 200) {
+                    return response.json()
+                    setMessage({ type: "Success", text: "Login Successful" })
+
                 }
 
-                
+
 
             })
             .then((data) => {
 
-                if(data.token!==undefined){
-                    localStorage.setItem("nutrify-user",JSON.stringify(data))
+                if (data.token !== undefined) {
+                    localStorage.setItem("nutrify-user", JSON.stringify(data))
+
+                    setLoggedUser(data);
+
                     navigate('/track')
+
+
                 }
-                
+
             })
             .catch((err) => {
                 console.log(err);
 
             })
 
-            setTimeout(() => {
-                    setMessage({ type: "invisible-msg", text: "dummy" })
-                    
-                }, 5000);
+        setTimeout(() => {
+            setMessage({ type: "invisible-msg", text: "dummy" })
+
+        }, 5000);
     }
     return (
 
@@ -74,7 +84,7 @@ function Login() {
 
             <form className="form" onSubmit={handleSubmit}>
                 <h1>Hit to Fit</h1>
-                <input type="email" name="email" placeholder="Enter email"  required onChange={handleInput} value={userCreds.email}
+                <input type="email" name="email" placeholder="Enter email" required onChange={handleInput} value={userCreds.email}
                     className="inp" />
                 <input type="password" name="password" placeholder="Enter password" required onChange={handleInput} value={userCreds.password}
                     className="inp" />

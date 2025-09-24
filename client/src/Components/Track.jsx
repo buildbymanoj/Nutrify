@@ -1,5 +1,13 @@
-export default function Track(){
-    return(
-        <h1>Welcome to Track Page</h1>
+import Header from "./Header"
+
+export default function Track() {
+
+    return (
+        <div>
+            <h1>Welcome to Track Page</h1>
+            <Header />
+        </div>
+
+
     )
 }

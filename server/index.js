@@ -57,44 +57,37 @@ app.post("/register", (req, res) => {
     //     });
 })
 
-app.post("/login",async (req,res)=>{
+app.post("/login", async (req, res) => {
 
     let userCred = req.body;
 
-    try 
-    {
-        const user=await userModel.findOne({email:userCred.email});
-        if(user!==null)
-        {
-            bcrypt.compare(userCred.password,user.password,(err,success)=>{
-                if(success==true)
-                {
-                    jwt.sign({email:userCred.email},"nutrifyapp",(err,token)=>{
-                        if(!err)
-                        {
-                            res.send({message:"Login Success",token:token,userid:user._id,name:user.name});
+    try {
+        const user = await userModel.findOne({ email: userCred.email });
+        if (user !== null) {
+            bcrypt.compare(userCred.password, user.password, (err, success) => {
+                if (success == true) {
+                    jwt.sign({ email: userCred.email }, "nutrifyapp", (err, token) => {
+                        if (!err) {
+                            res.send({ message: "Login Success", token: token, userid: user._id, name: user.name });
                         }
                     })
                 }
-                else 
-                {
-                    res.status(403).send({message:"Incorrect password"})
+                else {
+                    res.status(403).send({ message: "Incorrect password" })
                 }
             })
         }
-        else 
-        {
-            res.status(404).send({message:"User not found"})
+        else {
+            res.status(404).send({ message: "User not found" })
         }
 
 
     }
-    catch(err)
-    {
+    catch (err) {
         console.log(err);
-            res.status(500).send({message:"Some Problem"})
-        }
-    })
+        res.status(500).send({ message: "Some Problem" })
+    }
+})
 
 
 
@@ -126,31 +119,31 @@ app.get("/foods/:name", verifyToken, async (req, res) => {
 })
 
 
-app.post("/track",verifyToken,async(req,res)=>{
+app.post("/track", verifyToken, async (req, res) => {
     let trackData = req.body
-    try{
+    try {
         const data = await trackingModel.create(trackData);
-        res.status(201).send({message:"adding of food successsful"})
+        res.status(201).send({ message: "adding of food successsful" })
     }
 
-    catch(err){
+    catch (err) {
         console.log(err)
-         res.status(404).send({message:"adding of food failed"})
+        res.status(404).send({ message: "adding of food failed" })
 
     }
 })
 
-app.get("/track/:user",async(req,res)=>{
-    let userid=req.params.user;
+app.get("/track/:user", async (req, res) => {
+    let userid = req.params.user;
 
-    try{
-        let foods=await trackingModel.find({user:userid})
+    try {
+        let foods = await trackingModel.find({ user: userid })
         res.send(foods)
     }
 
-    catch(err){
+    catch (err) {
         console.log(err);
-        res.send({message:"some problem while getting the food data"})
+        res.send({ message: "some problem while getting the food data" })
     }
 })
 
