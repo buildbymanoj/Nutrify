@@ -66,7 +66,7 @@ app.post("/login", async (req, res) => {
         if (user !== null) {
             bcrypt.compare(userCred.password, user.password, (err, success) => {
                 if (success == true) {
-                    jwt.sign({ email: userCred.email }, "nutrifyapp", (err, token) => {
+                    jwt.sign({ email: userCred.email }, "nutrify", (err, token) => {
                         if (!err) {
                             res.send({ message: "Login Success", token: token, userid: user._id, name: user.name });
                         }

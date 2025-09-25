@@ -16,9 +16,6 @@ export default function Header() {
         <div className="header">
 
             <button className="btn">Home</button>
-
-            <button className="btn"><Link to='/demo'>Demo</Link></button>
-
             <button className="btn" onClick={logout}>Logout</button>
 
 

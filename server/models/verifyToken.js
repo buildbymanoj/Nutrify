@@ -6,18 +6,18 @@ function verifyToken(req,res,next)
 
         let token=req.headers.authorization.split(" ")[1];
 
-        jwt.verify(token,"nutrify",(err,dta)=>{
+        jwt.verify(token,"nutrify",(err,data)=>{
             if(!err){
                 next();
             }
             else{
-                res.send({message:"invalid token"})
+                res.status(401).send({message:"invalid token"})
             }
         })
 
     }
     else{
-        res.send({message:"please send a token"})
+        res.status(401).send({message:"please send a token"})
     }
 }
 

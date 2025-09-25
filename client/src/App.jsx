@@ -8,23 +8,22 @@ import Login from './Components/Login'
 import Notfound from './Components/Notfound'
 import Track from './Components/Track'
 import { UserContext } from './Contexts/UserContext'
-// import { useEffect } from 'react'
+ import { useEffect } from 'react'
 import Private from './Components/Private'
-import Demo from './Components/Demo'
 
 function App() {
 
-  const [loggedUser, setLoggedUser] = useState(localStorage.getItem("nutrify-user"));
+  const [loggedUser, setLoggedUser] = useState(JSON.parse(localStorage.getItem("nutrify-user")));
   //  const navigate = useNavigate();
 
-  //  useEffect(()=>{
-  // console.log(loggedUser);
+  //   useEffect(()=>{
+  //  console.log(loggedUser);
 
-  //   if(localStorage.getItem("nutrify-user") !== null){
-  //       setLoggedUser(JSON.parse(localStorage.getItem("nutrify-user")))
-  //   }
+  // //   if(localStorage.getItem("nutrify-user") !== null){
+  // //       setLoggedUser(JSON.parse(localStorage.getItem("nutrify-user")))
+  // //   }
 
-  //  },[])
+  //   },[])
 
   return (
 
@@ -37,7 +36,6 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/track' element={<Private Component={Track} />} />
-            <Route path='/demo' element={<Private Component={Demo} />} />
             <Route path='*' element={<Notfound />} />
 
 
