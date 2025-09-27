@@ -1,4 +1,4 @@
-//import Header from "./Header"
+import Header from "./Header"
 import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../Contexts/UserContext"
 import Food from "./Food";
@@ -30,7 +30,7 @@ export default function Track() {
 
                 .then((response) => response.json())
                 .then((data) => {
-                    // console.log(data);
+                    console.log(data);
                     if (data.message === undefined) {
                         setfoodItems(data);
                     }
@@ -50,7 +50,9 @@ export default function Track() {
     }
 
     return (
+        
         <section className="container track-container">
+            <Header/>
             <div className="search">
                 <input className="track-inp" onChange={searchfood} placeholder="Search foods" />
 

@@ -15,8 +15,9 @@ export default function Header() {
     return (
         <div className="header">
 
-            <button className="btn">Home</button>
-            <button className="btn" onClick={logout}>Logout</button>
+            <Link to="/track"><button className="head-btn">Track</button></Link>
+            <Link to="/diet"><button className="head-btn">Diet</button></Link>
+            <button className="head-btn" onClick={logout}>Logout</button>
 
 
 

@@ -133,17 +133,20 @@ app.post("/track", verifyToken, async (req, res) => {
     }
 })
 
-app.get("/track/:user", async (req, res) => {
+app.get("/track/:user/:date", async (req, res) => {
     let userid = req.params.user;
+    let date = new Date(req.params.date);
+    let strDate = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+
 
     try {
-        let foods = await trackingModel.find({ user: userid })
+         let foods = await trackingModel.find({userId:userid,eatenDate:strDate}).populate('userId').populate('foodid')
         res.send(foods)
     }
 
     catch (err) {
         console.log(err);
-        res.send({ message: "some problem while getting the food data" })
+        res.status(500).send({ message: "some problem while getting the food data" })
     }
 })
 

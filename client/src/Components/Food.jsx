@@ -39,6 +39,44 @@ export default function Food(props) {
         }
     }
 
+    function TrackFoodItem(){
+        let trackedItem={
+        userId:LoggedData.loggedUser.userid,
+        foodid:food._id,
+        details:{
+            protein:food.protein,
+            carbohydrates: food.carbohydrates,
+            fat:food.fat,
+            fiber:food.fiber,
+            calories:food.calories
+        },
+        quantity:Eatenquantity
+
+        
+        
+
+        }
+        console.log(trackedItem);
+        fetch("http://localhost:8000/track",{
+            method:"POST",
+            body:JSON.stringify(trackedItem),
+            headers:{
+                 "Content-Type": "application/json",
+                "Authorization":`Bearer ${LoggedData.loggedUser.token}`
+                
+            }
+        }
+        )
+        .then((response)=>response.json())
+        .then((data)=>{
+            console.log(data);
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+
+    }
+
     return (
         <div className="food">
             <div className="food-img">
@@ -68,7 +106,7 @@ export default function Food(props) {
                 <input className="inp" type="number" onChange={calculate} 
                 placeholder="Enter Qty in gms" />
                 {/* <button className="btn" onClick={calculate}>Calculate</button> */}
-                <button className="btn">Track</button>
+                <button className="btn" onClick={TrackFoodItem}>Track</button>
 
             </div>
 

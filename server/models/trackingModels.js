@@ -1,20 +1,37 @@
 const mongoose=require('mongoose')
 
 const trackingSchema=mongoose.Schema({
-    user:{
+    userId:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'users'
+        ref:'users',
+        required:true
+
     },
-    food:{
+    foodid:{
         type:mongoose.Schema.Types.ObjectId,
-        required:'foods',
+        ref:'foods',
+        required:true
     },
     quantity:{
         type:Number,
         min:1,
         required:true
+    },
+    details:{
+        protein:{type:Number},
+        fat:{type:Number},
+        fiber:{type:Number},
+        carbohydrates:{type:Number},
+        calories:{type:Number}
+        
+    },
+   
+    eatenDate:{
+        type:String,
+        default:new Date().toLocaleDateString()
     }
 },{timestamps:true})
+
 
 
 const trackingModel=mongoose.model('trackings',trackingSchema)

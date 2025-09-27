@@ -8,6 +8,7 @@ import Track from './Components/Track'
 import { UserContext } from './Contexts/UserContext'
  import { useEffect } from 'react'
 import Private from './Components/Private'
+import Diet from './Components/Diet'
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/track' element={<Private Component={Track} />} />
+            <Route path="/diet" element={<Private Component={Diet}/>}/>
             <Route path='*' element={<Notfound />} />
 
 
