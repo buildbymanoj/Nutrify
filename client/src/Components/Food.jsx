@@ -1,7 +1,35 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-export default function Food({food}) {
-  const [grams,setgrams]=useState(100);
+export default function Food(props) {
+  const [quantity,setquantity]=useState(100);
+  const [food,setfood]=useState({});
+  const [foodInitial,setfoodInitial]=useState({});
+
+  useEffect(()=>{
+    setfood(props.food);
+    setfoodInitial(props.food);
+  },[props.food])
+
+  function handleInput(event){
+     setquantity(Number(event.target.value ))
+  }
+
+  function calculate(event){
+        
+
+        let copyFood={...food};
+        
+            copyFood.protein=(foodInitial.protein*quantity)/100;
+            copyFood.carbohydrates=(foodInitial.carbohydrates*quantity)/100;
+            copyFood.fat=(foodInitial.fat*quantity)/100;
+            copyFood.fiber=(foodInitial.fiber*quantity)/100;
+            copyFood.calories=(foodInitial.calories*quantity)/100;
+
+            
+    setfood(copyFood);
+
+  }
+
     return(
     <div className="food">
         <div className="food-img">
@@ -9,7 +37,7 @@ export default function Food({food}) {
 
 
         </div>
-        <h2 className="nutriant">{food.name} ({food.calories} Kcal for {grams}G )</h2>
+        <h2 className="nutriant">{food.name} ({food.calories} Kcal for {quantity}G )</h2>
         <div className="nutriant">
             <p className="-title">Protein</p>
             <p className="-value">{food.protein}g</p>
@@ -27,8 +55,10 @@ export default function Food({food}) {
             <p className="-value">{food.fat}g</p>
         </div>
 
-        <input className="inp" type="number" placeholder="Enter Qty in gms" />
+        <input className="inp" type="number" onChange={handleInput} placeholder="Enter Qty in gms" />
+        <button className="btn" onClick={calculate}>Calculate</button>
         <button className="btn">Track this Food</button>
+        
 
     </div>
     )
