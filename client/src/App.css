@@ -16,6 +16,7 @@
     flex-direction: column;
     row-gap: 10px;
     align-items: flex-start;
+    width: 100%;
 
 }
 
@@ -33,7 +34,7 @@
     cursor: pointer;
     padding: 5px;
     margin: 2px;
-    width:100%;
+    width: fit-content;
     text-align: center;
 }
 
@@ -169,6 +170,20 @@ a {
 
 .-title{
     padding-right: 10px;
+}
+
+.track-control{
+    display: flex;
+    column-gap: 2%;
+}
+
+.track-control > .inp{
+    width: 68%;
+    
+}
+.track-control > .btn{
+    width: 30%;
+
 }
 
 
