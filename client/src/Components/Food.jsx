@@ -106,7 +106,7 @@ export default function Food(props) {
                 <input className="inp" type="number" onChange={calculate} 
                 placeholder="Enter Qty in gms" />
                 {/* <button className="btn" onClick={calculate}>Calculate</button> */}
-                <button className="btn" onClick={TrackFoodItem}>Track</button>
+                <button className="track-btn" onClick={TrackFoodItem}>Track</button>
 
             </div>
 

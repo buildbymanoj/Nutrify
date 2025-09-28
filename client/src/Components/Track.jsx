@@ -8,6 +8,7 @@ import Food from "./Food";
 export default function Track() {
     const [foodItems, setfoodItems] = useState([]);
     const [food, setfood] = useState(null);
+    const [searchValue, setSearchValue] = useState(""); // Add state for input value
     const LoggedData = useContext(UserContext);
 
     // useEffect(() => {
@@ -19,6 +20,9 @@ export default function Track() {
 
 
     function searchfood(event) {
+        const value = event.target.value;
+        setSearchValue(value); // Control the input
+
         if (event.target.value !== "") {
             fetch(`http://localhost:8000/foods/${event.target.value}`, {
                 method: "GET",
@@ -49,12 +53,22 @@ export default function Track() {
 
     }
 
+    function clearSearch() {
+        setSearchValue("");
+        setfoodItems([]);
+    }
+
     return (
-        
+
         <section className="container track-container">
-            <Header/>
+            <Header />
             <div className="search">
-                <input className="track-inp" onChange={searchfood} placeholder="Search foods" />
+                <input className="track-inp" onChange={searchfood} value={searchValue} placeholder="Search foods" />
+                {searchValue && (
+                    <button className="clear-btn" onClick={clearSearch}>
+                        &times;
+                    </button>
+                )}
 
             </div>
             {
@@ -67,6 +81,8 @@ export default function Track() {
                                     return (
                                         <p className="item" onClick={() => {
                                             setfood(item);
+                                            setfoodItems([]); // Clear items
+                                            setSearchValue(""); // Clear input
                                         }} key={item._id}>{item.name}</p>
                                     )
                                 })
@@ -75,12 +91,12 @@ export default function Track() {
                         </div>) : null
 
             }
-            {    food!==null?
-                <Food food={food}/>:null
+            {food !== null ?
+                <Food food={food} /> : null
             }
-            
 
-                   </section>
+
+        </section>
 
 
 

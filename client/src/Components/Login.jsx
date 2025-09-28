@@ -80,10 +80,11 @@ function Login() {
     return (
 
 
-        <section className="container">
+        <section className="container auth-container">
+            <div className="login-div">
 
             <form className="form" onSubmit={handleSubmit}>
-                <h1>Hit to Fit</h1>
+                <h1>Lets' get Fit</h1>
                 <input type="email" name="email" placeholder="Enter email" required onChange={handleInput} value={userCreds.email}
                     className="inp" />
                 <input type="password" name="password" placeholder="Enter password" required onChange={handleInput} value={userCreds.password}
@@ -92,6 +93,8 @@ function Login() {
                 <p>Not Registered Yet? <Link to='/register'>Register</Link></p>
                 <p className={Message.type}>{Message.text}</p>
             </form>
+
+            </div>
 
         </section>
     )

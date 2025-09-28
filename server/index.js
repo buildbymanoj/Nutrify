@@ -6,10 +6,13 @@ const userModel = require('./models/userModels')
 const foodModel = require('./models/foodModels')
 const trackingModel = require('./models/trackingModels')
 const cors = require('cors');
+require('dotenv').config();
 
 const verifyToken = require('./models/verifyToken')
+const server=process.env.MONGO_URI;
 
-mongoose.connect('mongodb://localhost:27017/nutrify')
+
+mongoose.connect(server)
     .then(() => {
         console.log('MongoDB connected');
     })

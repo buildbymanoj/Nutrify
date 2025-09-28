@@ -66,7 +66,9 @@ function Register() {
 
 
 
-        <section className="container">
+        <section className="container auth-container">
+
+            <div className='login-div'>
 
             <form className="form" onSubmit={handleSubmit}>
                 <h1>Hit to Fit</h1>
@@ -85,6 +87,8 @@ function Register() {
                 <p>Already Registered? <Link to='/login'>Login</Link></p>
                 <p className={Message.type}>{Message.text}</p>
             </form>
+
+            </div>
 
 
         </section>

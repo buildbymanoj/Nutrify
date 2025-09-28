@@ -77,7 +77,7 @@ export default function Diet() {
 
 
                     return (
-                        <div className="item" key={item._id}>
+                        <div className="diet-item" key={item._id}>
                             <h2> {item.foodid.name} ({item.foodid.calories} for {item.quantity} G)</h2>
                             <p>Protein {item.foodid.protein} g Fat {item.foodid.fat} g Carbs {item.foodid.carbohydrates} g Fiber {item.foodid.fiber} g</p>
 
@@ -88,7 +88,7 @@ export default function Diet() {
                 })
             }
 
-            <div className="item">
+            <div className="diet-item">
                 <h2> {total.totalCalories} Kcal </h2>
                 <p>Protein {total.totalProtein} g Fat {total.totalFat} g Carbs {total.totalCarbs} g Fiber {total.totalFiber} g</p>
 

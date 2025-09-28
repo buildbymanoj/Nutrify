@@ -1,11 +1,15 @@
 .container {
-    height: 100%;
+    min-height: 100vh;
     padding: 30px;
     width: 100%;
+    background-color: black;
+    box-sizing: border-box;
+}
+
+.auth-container {
     display: flex;
     align-items: center;
-    background-color: black;
-
+    justify-content: center;
 }
 
 .form {
@@ -17,6 +21,7 @@
     row-gap: 10px;
     align-items: flex-start;
     width: 100%;
+    height: 100%;
 
 }
 
@@ -36,10 +41,12 @@
     margin: 2px;
     width: fit-content;
     text-align: center;
+    border-radius: 10px;
 }
 
 .btn:hover {
-    background-color: lawngreen;
+    background-color:rgb(130, 130, 204);
+    font-weight: bold;
 }
 
 .not-found {
@@ -80,134 +87,189 @@ a {
 }
 
 .header {
-    padding: 5px;
+    padding: 10px 20px;
     width: 100%;
-    background-color: blue;
+    background-color: aquamarine;
     align-items: center;
-    column-gap: 70px;
     display: flex;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 3px;
 }
 
-.header:hover {
-    cursor: pointer;
+.header-links {
+    display: flex;
+    gap: 50px;
 }
 
-.track-container{
+.track-container {
     width: 100%;
     align-items: flex-start;
-    flex-direction: column; 
+    flex-direction: column;
     row-gap: 15px;
     height: auto;
-    
-    
-    
+
+
+
 }
 
-.search{
+.search {
     width: 100%;
     background-color: sandybrown;
     height: 40px;
-    padding: 10px ;
+    padding: 10px;
     border-radius: 5px;
     position: relative;
-    
+    display: flex;
+    align-items: center;
+
 }
 
-.track-inp{
+.clear-btn {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #555;
+}
+
+.track-inp {
     border-radius: 5px;
     align-items: center;
     text-indent: 5px;
     height: 25px;
     width: 100%;
-    
-    
+
+
 }
 
-.search-item{
-    width: 100%;
-    padding: 10px;
-    background-color: khaki;
-    margin-top: 45px;
+.search-item {
+    width: 200px;
+    padding: 5px;
+    background-color: lavender;
+    /* margin-top: 45px; */
     position: absolute;
-    
-    
+
+
 
 }
-.item{
+
+.item {
+    width: 100%;
+    padding: 20px;
+    /* background-color: lightgray; */
     color: black;
+    align-items: center;
 }
 
-.item:hover{
+.item:hover {
     cursor: pointer;
+    font-weight: bold;
 }
 
-.food{
-     width: 100%;
+.food {
+    width: 100%;
     padding: 20px;
     /* background-color: gray; */
 
 }
-.food-img{
-    width: 100%;
+
+.food-img {
+    width: 300px;
     height: 250px;
     padding: 20px;
     background-color: lawngreen;
 }
 
-.food-image{
+.food-image {
     width: 100%;
     height: 250px;
 
 }
 
-.nutriant{
+.nutriant {
     color: wheat;
     display: flex;
     width: fit-content;
     padding-left: 5px;
 }
 
-.-title{
+.-title {
     padding-right: 10px;
 }
 
-.track-control{
+.track-control {
     display: flex;
     column-gap: 2%;
 }
 
-.track-control > .inp{
+.track-control>.inp {
     width: 68%;
-    
+
 }
-.track-control > .btn{
+
+.track-control> .track-btn {
     width: 30%;
 
 }
 
-.diet-container{
+.diet-container {
     align-items: flex-start;
     row-gap: 20px;
     flex-direction: column;
+    /* background-color: red; */
 
 }
 
-.item{
+.diet-item{
     width: 100%;
-    padding: 20px;
+    /* padding: 10px; */
+    gap: 5px;
     background-color: lightgray;
-}
+    color: black;
+} 
 
 
-.head-btn{
+.head-btn {
     border: 10px;
     background-color: aquamarine;
+    
 }
-.head-btn:hover{
+
+.head-btn:hover {
     cursor: pointer;
     font-weight: bold;
     padding: 3px;
     border-radius: 2px;
 }
 
+.login-div{
+    width:400px;
+}
 
+.track-btn{
+    background-color: aqua;
+    border-radius: 5px;
+}
+.track-btn:hover{
+    background-color:rgb(130, 130, 204);
+
+}
+
+.diet-container {
+    align-items: flex-start;
+    row-gap: 20px;
+    flex-direction: column;
+
+}
+
+.diet-items-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+}
