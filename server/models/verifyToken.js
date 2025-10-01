@@ -1,24 +1,23 @@
 const jwt = require('jsonwebtoken');
 
-function verifyToken(req,res,next)
-{
-    if(req.headers.authorization!==undefined){
+function verifyToken(req, res, next) {
+    if (req.headers.authorization !== undefined) {
 
-        let token=req.headers.authorization.split(" ")[1];
+        let token = req.headers.authorization.split(" ")[1];
 
-        jwt.verify(token,"nutrify",(err,data)=>{
-            if(!err){
+        jwt.verify(token, "nutrify", (err, data) => {
+            if (!err) {
                 next();
             }
-            else{
-                res.status(401).send({message:"invalid token"})
+            else {
+                res.status(401).send({ message: "invalid token" })
             }
         })
 
     }
-    else{
-        res.status(401).send({message:"please send a token"})
+    else {
+        res.status(401).send({ message: "please send a token" })
     }
 }
 
-module.exports=verifyToken;
+module.exports = verifyToken;

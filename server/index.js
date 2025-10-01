@@ -6,10 +6,11 @@ const userModel = require('./models/userModels')
 const foodModel = require('./models/foodModels')
 const trackingModel = require('./models/trackingModels')
 const cors = require('cors');
+
 require('dotenv').config();
 
 const verifyToken = require('./models/verifyToken')
-const server=process.env.MONGO_URI;
+const server = process.env.MONGO_URI;
 
 
 mongoose.connect(server)
@@ -139,11 +140,11 @@ app.post("/track", verifyToken, async (req, res) => {
 app.get("/track/:user/:date", async (req, res) => {
     let userid = req.params.user;
     let date = new Date(req.params.date);
-    let strDate = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+    let strDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
 
 
     try {
-         let foods = await trackingModel.find({userId:userid,eatenDate:strDate}).populate('userId').populate('foodid')
+        let foods = await trackingModel.find({ userId: userid, eatenDate: strDate }).populate('userId').populate('foodid')
         res.send(foods)
     }
 
