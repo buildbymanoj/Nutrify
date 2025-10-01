@@ -71,7 +71,7 @@ function Register() {
             <div className='login-div'>
 
             <form className="form" onSubmit={handleSubmit}>
-                <h1>Hit to Fit</h1>
+                <h1>Lets' get Fit</h1>
                 <input type="text" name="name" placeholder="Enter name" onChange={handleInput} value={UserDetails.name} required
                     className="inp" />
 
