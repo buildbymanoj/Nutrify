@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "dotenv": "^17.2.2",
-    "gsap": "^3.13.0"
-  }
-}
