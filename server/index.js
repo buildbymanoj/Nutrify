@@ -11,6 +11,7 @@ require('dotenv').config();
 
 const verifyToken = require('./models/verifyToken')
 const server = process.env.MONGO_URI;
+const PORT = process.env.PORT || 8000;
 
 
 mongoose.connect(server)
@@ -155,6 +156,6 @@ app.get("/track/:user/:date", async (req, res) => {
 })
 
 
-app.listen(8000, () => {
-    console.log('Server is running on port 8000');
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
