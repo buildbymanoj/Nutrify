@@ -24,7 +24,7 @@ export default function Track() {
         setSearchValue(value); // Control the input
 
         if (event.target.value !== "") {
-            fetch(`${process.env.REACT_APP_API_URL}/foods/${event.target.value}`, {
+            fetch(`${import.meta.env.VITE_API_URL}/foods/${event.target.value}`, {
                 method: "GET",
                 headers: {
 

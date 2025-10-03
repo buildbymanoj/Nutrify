@@ -29,7 +29,7 @@ function Login() {
         event.preventDefault();
         //   console.log(userCreds)
 
-        fetch(`${process.env.REACT_APP_API_URL}/login`, {
+        fetch(`${import.meta.env.VITE_API_URL}/login`, {
             method: "POST",
             body: JSON.stringify(userCreds),
             headers: {

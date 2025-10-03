@@ -28,7 +28,7 @@ function Register() {
         console.log(UserDetails);
 
 
-        fetch(`${process.env.REACT_APP_API_URL}/register`, {
+        fetch(`${import.meta.env.VITE_API_URL}/register`, {
             method: "POST",
             body: JSON.stringify(UserDetails),
             headers: {

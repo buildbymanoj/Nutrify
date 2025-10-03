@@ -20,7 +20,7 @@ export default function Diet() {
 
         // console.log(LoggedData);
 
-        fetch(`${process.env.REACT_APP_API_URL}/track/${LoggedData.loggedUser.userid}/${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`, {
+        fetch(`${import.meta.env.VITE_API_URL}/track/${LoggedData.loggedUser.userid}/${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${LoggedData.loggedUser.token}`
