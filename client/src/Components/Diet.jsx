@@ -20,7 +20,7 @@ export default function Diet() {
 
         // console.log(LoggedData);
 
-        fetch(`http://localhost:8000/track/${LoggedData.loggedUser.userid}/${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/track/${LoggedData.loggedUser.userid}/${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${LoggedData.loggedUser.token}`

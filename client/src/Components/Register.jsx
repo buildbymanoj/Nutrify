@@ -28,7 +28,7 @@ function Register() {
         console.log(UserDetails);
 
 
-        fetch("http://localhost:8000/register", {
+        fetch(`${process.env.REACT_APP_API_URL}/register`, {
             method: "POST",
             body: JSON.stringify(UserDetails),
             headers: {
