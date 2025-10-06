@@ -1,121 +1,185 @@
 # Nutrify
 
-A full-stack nutrition tracking application built with React for the frontend and Node.js/Express for the backend. This application allows users to register, log in, search for food items, and track their daily nutritional intake.
+A comprehensive full-stack nutrition tracking and health calculator application built with modern React and Node.js. This application empowers users to track their nutritional intake, calculate BMI, determine daily calorie needs, and maintain a healthy lifestyle with an intuitive, theme-switchable interface.
 
 ## 🚀 Features
 
-- **User Authentication**: Secure user registration and login system using JWT for authentication.
-- **Food Tracking**: Users can search for food items and add them to their daily tracking log.
-- **Dynamic Date Tracking**: View nutrition data for any selected date.
-- **Nutrition Summary**: Calculates and displays total calories, protein, carbs, fat, and fiber for the selected day.
-- **Responsive UI**: A clean and modern user interface built with React and Vite for a fast, responsive experience.
+### Core Nutrition Tracking
+- **User Authentication**: Secure registration and login with JWT-based authentication
+- **Food Search & Tracking**: Real-time food search with dynamic quantity calculation
+- **Daily Nutrition Summary**: Comprehensive tracking of calories, protein, carbs, fat, and fiber
+- **Date-based Tracking**: View and manage nutrition data for any specific date
+- **Visual Feedback**: Success/error messages for all user actions
+
+### Health Calculators
+- **BMI Calculator**: Calculate Body Mass Index with personalized motivational messages
+- **Calorie Calculator**: Mifflin-St Jeor formula-based daily calorie needs calculation
+- **Activity Levels**: Comprehensive activity level options from sedentary to elite athlete
+- **Health Insights**: Color-coded BMI categories with encouraging quotes
+
+### User Experience
+- **Dark/Light Theme**: Seamless theme switching with local storage persistence
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- **Modern UI**: Clean, animated interface with smooth transitions
+- **Real-time Updates**: Instant feedback and dynamic calculations
 
 ## 🛠️ Tech Stack
 
 ### Frontend (`/client`)
-- **React** - A JavaScript library for building user interfaces.
-- **Vite** - A fast build tool and development server for modern web projects.
-- **React Router** - For client-side routing between pages.
-- **CSS3** - For styling the application.
+- **React 19.1.1** - Modern JavaScript library for building user interfaces
+- **Vite** - Lightning-fast build tool and development server
+- **React Router 7.9.1** - Declarative routing for React applications
+- **CSS Variables** - Dynamic theming system with custom properties
+- **GSAP** - Animation library for smooth theme transitions
 
 ### Backend (`/server`)
-- **Node.js** - A JavaScript runtime built on Chrome's V8 JavaScript engine.
-- **Express.js** - A minimal and flexible Node.js web application framework.
-- **MongoDB** - A NoSQL database for storing application data.
-- **Mongoose** - An ODM (Object Data Modeling) library for MongoDB and Node.js.
-- **JWT (JSON Web Tokens)** - For creating secure authentication tokens.
-- **bcryptjs** - A library for hashing passwords.
-- **CORS** - For enabling Cross-Origin Resource Sharing.
+- **Node.js** - JavaScript runtime for server-side development
+- **Express.js** - Fast, unopinionated web framework
+- **MongoDB** - NoSQL database for flexible data storage
+- **Mongoose** - Elegant MongoDB object modeling
+- **JWT** - Secure token-based authentication
+- **bcryptjs** - Password hashing for security
+- **CORS** - Cross-origin resource sharing support
 
 ## 📁 Project Structure
 
 ```
 nutrify/
-├── client/                 # React frontend application
+├── client/                     # React frontend application
 │   ├── src/
-│   │   ├── Components/     # Reusable React components (Header, Food, Diet, etc.)
-│   │   ├── Contexts/       # React Context for state management (e.g., UserContext)
-│   │   ├── App.jsx         # Main application component with routing
-│   │   └── main.jsx        # Entry point for the React application
+│   │   ├── Components/         # Reusable React components
+│   │   │   ├── Calculator.jsx  # BMI & Calorie calculators
+│   │   │   ├── Food.jsx        # Food tracking component
+│   │   │   ├── Header.jsx      # Navigation with theme toggle
+│   │   │   ├── Login.jsx       # User authentication
+│   │   │   ├── Register.jsx    # User registration
+│   │   │   ├── Track.jsx       # Food search and tracking
+│   │   │   └── ...
+│   │   ├── Contexts/           # React Context providers
+│   │   │   ├── UserContext.jsx # User state management
+│   │   │   └── ThemeContext.jsx # Theme state management
+│   │   ├── App.jsx             # Main app with routing
+│   │   ├── App.css             # Global styles with themes
+│   │   └── main.jsx            # React application entry point
 │   ├── package.json
 │   └── vite.config.js
-├── server/                 # Node.js backend server
-│   ├── models/             # Mongoose schema models
-│   │   ├── userModels.js
-│   │   ├── foodModels.js
-│   │   └── trackingModels.js
-│   ├── index.js            # Main server file with Express setup and API routes
+├── server/                     # Node.js backend server
+│   ├── models/                 # Mongoose data models
+│   │   ├── userModels.js       # User schema
+│   │   ├── foodModels.js       # Food database schema
+│   │   ├── trackingModels.js   # Nutrition tracking schema
+│   │   └── verifyToken.js      # JWT verification middleware
+│   ├── index.js                # Express server with API routes
 │   └── package.json
-└── README.md
+├── README.md
+└── package.json
 ```
 
 ## 🚦 Getting Started
 
 ### Prerequisites
-- **Node.js**: Version 16 or higher.
-- **MongoDB**: A local installation of MongoDB or a connection string for MongoDB Atlas.
-- **npm** or **yarn**: A package manager for Node.js.
+- **Node.js**: Version 18 or higher
+- **MongoDB**: Local installation or MongoDB Atlas connection
+- **npm**: Package manager for Node.js
 
 ### Installation
 
-1. **Clone the repository** to your local machine:
+1. **Clone the repository**:
    ```bash
    git clone https://github.com/buildbymanoj/Nutrify.git
    cd Nutrify
    ```
 
 2. **Install Backend Dependencies**:
-   Navigate to the `server` directory and install the required packages.
    ```bash
    cd server
    npm install
    ```
 
 3. **Install Frontend Dependencies**:
-   Navigate to the `client` directory and install the required packages.
    ```bash
    cd ../client
    npm install
    ```
 
+### Environment Setup
+
+Create a `.env` file in the server directory with:
+```env
+MONGODB_URI=mongodb://localhost:27017/nutrify
+JWT_SECRET=your_jwt_secret_key
+PORT=8000
+```
+
 ### Running the Application
 
-1. **Start MongoDB**:
-   Ensure your MongoDB server is running. The default connection string is `mongodb://localhost:27017/nutrify`.
+1. **Start MongoDB** (if using local instance)
 
 2. **Start the Backend Server**:
-   In the `server` directory, run the following command:
    ```bash
-   node index.js
+   cd server
+   npm start
    ```
-   The server will start on `http://localhost:8000`.
+   Server runs on `http://localhost:8000`
 
-3. **Start the Frontend Development Server**:
-   In the `client` directory, run the following command:
+3. **Start the Frontend**:
    ```bash
+   cd client
    npm run dev
    ```
-   The frontend application will be available at `http://localhost:5173` (or another port if 5173 is in use).
+   Frontend available at `http://localhost:5173`
 
 ## 🔧 API Endpoints
 
-All endpoints are prefixed with `http://localhost:8000`.
+Base URL: `http://localhost:8000`
 
-- `POST /register`: Allows a new user to register.
-- `POST /login`: Authenticates a user and returns a JWT token.
-- `GET /foods`: Retrieves a list of all food items (requires authentication).
-- `POST /track`: Adds a new food item to the user's daily tracking log (requires authentication).
-- `GET /track/:user/:date`: Retrieves the tracked food items for a specific user and date (e.g., `/track/60d21b4667d0d8992e610c85/2025-09-28`) (requires authentication).
+### Authentication
+- `POST /register` - User registration
+- `POST /login` - User authentication with JWT
+
+### Food Management
+- `GET /foods/:query` - Search food items (authenticated)
+- `POST /track` - Add food to daily tracking (authenticated)
+- `GET /track/:user/:date` - Get daily nutrition data (authenticated)
+
+## 🎨 Features Overview
+
+### Health Calculators
+- **BMI Calculator**: Weight/height input with categorized results
+- **Calorie Calculator**: Age, gender, weight, height, and activity level inputs
+- **Motivational Messages**: Personalized feedback based on BMI results
+- **Activity Options**: 10+ activity levels from sedentary to professional athlete
+
+### User Interface
+- **Theme Switching**: Toggle between light and dark modes
+- **Responsive Layout**: Mobile-first design approach
+- **Smooth Animations**: GSAP-powered transitions
+- **Accessibility**: Proper contrast ratios and keyboard navigation
+
+### Data Management
+- **Real-time Search**: Instant food item search and selection
+- **Quantity Calculation**: Dynamic nutritional value scaling
+- **Date Navigation**: Historical nutrition data viewing
+- **Persistent Sessions**: JWT-based authentication with local storage
 
 ## 🤝 Contributing
 
-Contributions are welcome! If you'd like to contribute, please follow these steps:
+We welcome contributions! Please follow these steps:
 
-1. Fork the project repository.
-2. Create a new feature branch (`git checkout -b feature/AmazingFeature`).
-3. Make your changes and commit them (`git commit -m 'Add some AmazingFeature'`).
-4. Push your changes to the branch (`git push origin feature/AmazingFeature`).
-5. Open a Pull Request.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📊 Project Status
+
+- ✅ User authentication system
+- ✅ Food search and tracking
+- ✅ BMI and calorie calculators
+- ✅ Dark/light theme switching
+- ✅ Responsive design
+- ✅ Real-time feedback system
 
 ## 👤 Author
 
@@ -127,4 +191,4 @@ This project is licensed under the ISC License.
 
 ---
 
-Built with ❤️ using React and Node.js
+Built with ❤️ using React, Node.js, and modern web technologies

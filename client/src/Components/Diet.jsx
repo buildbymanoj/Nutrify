@@ -68,9 +68,16 @@ export default function Diet() {
     return (
         <section className="container diet-container">
             <Header />
-            <input type="date" onChange={(event) => {
-                setdate(new Date(event.target.value))
-            }} />
+            <div className="date-picker">
+                <label>Select Date:</label>
+                <input 
+                    type="date" 
+                    onChange={(event) => {
+                        setdate(new Date(event.target.value))
+                    }} 
+                    className="date-input"
+                />
+            </div>
 
             {
                 items.map((item) => {
@@ -78,20 +85,27 @@ export default function Diet() {
 
                     return (
                         <div className="diet-item" key={item._id}>
-                            <h2> {item.foodid.name} ({item.foodid.calories} for {item.quantity} G)</h2>
-                            <p>Protein {item.foodid.protein} g Fat {item.foodid.fat} g Carbs {item.foodid.carbohydrates} g Fiber {item.foodid.fiber} g</p>
-
+                            <h2> {item.foodid.name} ({item.foodid.calories} kcal for {item.quantity} g)</h2>
+                            <p>
+                                <span>Protein: {item.foodid.protein} g</span>
+                                <span>Fat: {item.foodid.fat} g</span>
+                                <span>Carbs: {item.foodid.carbohydrates} g</span>
+                                <span>Fiber: {item.foodid.fiber} g</span>
+                            </p>
                         </div>
-
                     )
 
                 })
             }
 
-            <div className="diet-item">
-                <h2> {total.totalCalories} Kcal </h2>
-                <p>Protein {total.totalProtein} g Fat {total.totalFat} g Carbs {total.totalCarbs} g Fiber {total.totalFiber} g</p>
-
+            <div className="diet-item total-item">
+                <h2>Daily Total: {total.totalCalories} kcal</h2>
+                <p>
+                    <span>Protein: {total.totalProtein} g</span>
+                    <span>Fat: {total.totalFat} g</span>
+                    <span>Carbs: {total.totalCarbs} g</span>
+                    <span>Fiber: {total.totalFiber} g</span>
+                </p>
             </div>
         </section>
     )

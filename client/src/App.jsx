@@ -6,49 +6,32 @@ import Login from './Components/Login'
 import Notfound from './Components/Notfound'
 import Track from './Components/Track'
 import { UserContext } from './Contexts/UserContext'
+import { ThemeProvider } from './Contexts/ThemeContext'
 import { useEffect } from 'react'
 import Private from './Components/Private'
 import Diet from './Components/Diet'
+import Calculator from './Components/Calculator'
 
 function App() {
-
   const [loggedUser, setLoggedUser] = useState(JSON.parse(localStorage.getItem("nutrify-user")));
-  //  const navigate = useNavigate();
-
-  //   useEffect(()=>{
-  //  console.log(loggedUser);
-
-  // //   if(localStorage.getItem("nutrify-user") !== null){
-  // //       setLoggedUser(JSON.parse(localStorage.getItem("nutrify-user")))
-  // //   }
-
-  //   },[])
-
-//   useEffect(() => {
-//   console.log("API :", import.meta.env.VITE_API_URL);
-// }, []);
-
 
   return (
-
     <>
-
-      <UserContext.Provider value={{ loggedUser, setLoggedUser }}>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<Login />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='/track' element={<Private Component={Track} />} />
-            <Route path="/diet" element={<Private Component={Diet} />} />
-            <Route path='*' element={<Notfound />} />
-
-
-          </Routes>
-
-        </BrowserRouter>
-
-      </UserContext.Provider>
+      <ThemeProvider>
+        <UserContext.Provider value={{ loggedUser, setLoggedUser }}>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<Login />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
+              <Route path='/track' element={<Private Component={Track} />} />
+              <Route path="/diet" element={<Private Component={Diet} />} />
+              <Route path="/calculator" element={<Calculator />} />
+              <Route path='*' element={<Notfound />} />
+            </Routes>
+          </BrowserRouter>
+        </UserContext.Provider>
+      </ThemeProvider>
     </>
   )
 }

@@ -35,28 +35,27 @@ function Register() {
                 "Content-Type": "application/json"
             }
         })
-            .then((response) =>
-                response.json())
-            .then((data) => {
-                setMessage({ type: "Success", text: data.message })
-                //  console.log(UserDetails)
+            .then(async (response) => {
+                const data = await response.json().catch(() => ({}));
+                if (response.ok) {
+                    setMessage({ type: "Success", text: data.message || 'Registered successfully' });
+                    SetUserDetails({ name: '', email: '', password: '', age: '' });
+                } else {
+                    // show server-provided message when available, otherwise fallback
+                    setMessage({ type: "error", text: data.message || `Registration failed (${response.status})` });
+                }
 
-                SetUserDetails({
-                    name: '',
-                    email: '',
-                    password: '',
-                    age: ''
-
-                })
-
+                // hide message after a short delay
                 setTimeout(() => {
                     setMessage({ type: "invisible-msg", text: "dummy" })
                 }, 5000);
-
             })
             .catch((err) => {
                 console.log(err);
-
+                setMessage({ type: "error", text: "Network error. Please try again." });
+                setTimeout(() => {
+                    setMessage({ type: "invisible-msg", text: "dummy" })
+                }, 5000);
             })
     }
 

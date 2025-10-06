@@ -36,63 +36,55 @@ function Login() {
                 "Content-Type": "application/json"
             }
         })
-
-            .then((response) => {
-                if (response.status === 404) {
-                    setMessage({ type: "error", text: "username or email not exist" })
+            .then(async (response) => {
+                const data = await response.json().catch(() => ({}));
+                if (response.ok) {
+                    setMessage({ type: "Success", text: data.message || 'Login Successful' });
+                    // store and navigate
+                    if (data.token !== undefined) {
+                        localStorage.setItem("nutrify-user", JSON.stringify(data));
+                        setLoggedUser(data);
+                        navigate('/track');
+                    }
+                } else {
+                    // Map known status codes to messages, otherwise use server message
+                    if (response.status === 404) {
+                        setMessage({ type: "error", text: data.message || 'Username or email not exist' });
+                    } else if (response.status === 403) {
+                        setMessage({ type: "error", text: data.message || 'Incorrect password' });
+                    } else {
+                        setMessage({ type: "error", text: data.message || `Login failed (${response.status})` });
+                    }
                 }
 
-                else if (response.status === 403) {
-                    setMessage({ type: "error", text: "incorrect password" })
-                }
-                else if (response.status === 200) {
-                    return response.json()
-                    setMessage({ type: "Success", text: "Login Successful" })
-
-                }
-
-
-
-            })
-            .then((data) => {
-
-                if (data.token !== undefined) {
-                    localStorage.setItem("nutrify-user", JSON.stringify(data))
-
-                    setLoggedUser(data);
-
-                    navigate('/track')
-
-
-                }
-
+                setTimeout(() => {
+                    setMessage({ type: "invisible-msg", text: "dummy" })
+                }, 5000);
             })
             .catch((err) => {
                 console.log(err);
-
-            })
-
-        setTimeout(() => {
-            setMessage({ type: "invisible-msg", text: "dummy" })
-
-        }, 5000);
+                setMessage({ type: "error", text: "Network error. Please try again." });
+                setTimeout(() => {
+                    setMessage({ type: "invisible-msg", text: "dummy" })
+                }, 5000);
+            });
     }
     return (
-       
-           
+
+
         <section className="container auth-container">
             <div className="login-div">
 
-            <form className="form" onSubmit={handleSubmit}>
-                <h1>Lets' get Fit</h1>
-                <input type="email" name="email" placeholder="Enter email" required onChange={handleInput} value={userCreds.email}
-                    className="inp" />
-                <input type="password" name="password" placeholder="Enter password" required onChange={handleInput} value={userCreds.password}
-                    className="inp" />
-                <button className="btn">LOGIN</button>
-                <p>Not Registered Yet? <Link to='/register'>Register</Link></p>
-                <p className={Message.type}>{Message.text}</p>
-            </form>
+                <form className="form" onSubmit={handleSubmit}>
+                    <h1>Lets' get Fit</h1>
+                    <input type="email" name="email" placeholder="Enter email" required onChange={handleInput} value={userCreds.email}
+                        className="inp" />
+                    <input type="password" name="password" placeholder="Enter password" required onChange={handleInput} value={userCreds.password}
+                        className="inp" />
+                    <button className="btn">LOGIN</button>
+                    <p>Not Registered Yet? <Link to='/register'>Register</Link></p>
+                    <p className={Message.type}>{Message.text}</p>
+                </form>
 
             </div>
 

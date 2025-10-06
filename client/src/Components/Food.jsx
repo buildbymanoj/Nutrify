@@ -6,8 +6,9 @@ export default function Food(props) {
     const [Eatenquantity, setEatenquantity] = useState(100);
     const [food, setfood] = useState({});
     const [foodInitial, setfoodInitial] = useState({});
+    const [trackMessage, setTrackMessage] = useState("");
 
-    let LoggedData=useContext(UserContext);
+    let LoggedData = useContext(UserContext);
 
     useEffect(() => {
         setfood(props.food);
@@ -39,41 +40,45 @@ export default function Food(props) {
         }
     }
 
-    function TrackFoodItem(){
-        let trackedItem={
-        userId:LoggedData.loggedUser.userid,
-        foodid:food._id,
-        details:{
-            protein:food.protein,
-            carbohydrates: food.carbohydrates,
-            fat:food.fat,
-            fiber:food.fiber,
-            calories:food.calories
-        },
-        quantity:Eatenquantity
+    function TrackFoodItem() {
+        let trackedItem = {
+            userId: LoggedData.loggedUser.userid,
+            foodid: food._id,
+            details: {
+                protein: food.protein,
+                carbohydrates: food.carbohydrates,
+                fat: food.fat,
+                fiber: food.fiber,
+                calories: food.calories
+            },
+            quantity: Eatenquantity
 
-        
-        
+
+
 
         }
         console.log(trackedItem);
-        fetch(`${import.meta.env.VITE_API_URL}/track`,{
-            method:"POST",
-            body:JSON.stringify(trackedItem),
-            headers:{
-                 "Content-Type": "application/json",
-                "Authorization":`Bearer ${LoggedData.loggedUser.token}`
-                
+        fetch(`${import.meta.env.VITE_API_URL}/track`, {
+            method: "POST",
+            body: JSON.stringify(trackedItem),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${LoggedData.loggedUser.token}`
+
             }
         }
         )
-        .then((response)=>response.json())
-        .then((data)=>{
-            console.log(data);
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                setTrackMessage("✓ Added successfully!");
+                setTimeout(() => setTrackMessage(""), 3000); // Clear message after 3 seconds
+            })
+            .catch((err) => {
+                console.log(err);
+                setTrackMessage("✗ Failed to add. Try again.");
+                setTimeout(() => setTrackMessage(""), 3000);
+            })
 
     }
 
@@ -103,12 +108,17 @@ export default function Food(props) {
             </div>
             <div className="track-control">
 
-                <input className="inp" type="number" onChange={calculate} 
-                placeholder="Enter Qty in gms" />
+                <input className="inp" type="number" onChange={calculate}
+                    placeholder="Enter Qty in gms" />
                 {/* <button className="btn" onClick={calculate}>Calculate</button> */}
                 <button className="track-btn" onClick={TrackFoodItem}>Track</button>
 
             </div>
+            {trackMessage && (
+                <div className={`track-message ${trackMessage.includes('✓') ? 'success' : 'error'}`}>
+                    {trackMessage}
+                </div>
+            )}
 
 
 

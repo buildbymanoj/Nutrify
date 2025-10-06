@@ -28,38 +28,51 @@ app.use(express.json());
 app.use(cors());
 
 
-app.post("/register", (req, res) => {
+app.post("/register", async (req, res) => {
     let user = req.body;
-
-    bcrypt.genSalt(10, (err, salt) => {
-        if (!err) {
-            bcrypt.hash(user.password, salt, async (err, hpass) => {
-                if (!err) {
-                    user.password = hpass;
-
-                    try {
-                        let doc = await userModel.create(user)
-                        res.send({ message: "user registered" })
-
-                    }
-                    catch (err) {
-                        console.error('Error registering user:', err);
-                        res.status(500).send({ message: "Error registering user" });
-                    }
-
-                }
-            })
+    
+    try {
+        // Check if user already exists with the same email
+        const existingUser = await userModel.findOne({ email: user.email });
+        if (existingUser) {
+            return res.status(409).send({ message: "User with this email already exists" });
         }
-    })
+        
+        // If user doesn't exist, proceed with registration
+        bcrypt.genSalt(10, (err, salt) => {
+            if (!err) {
+                bcrypt.hash(user.password, salt, async (err, hpass) => {
+                    if (!err) {
+                        user.password = hpass;
+
+                        try {
+                            let doc = await userModel.create(user)
+                            res.status(201).send({ message: "user registered" })
+                        }
+                        catch (err) {
+                            console.error('Error registering user:', err);
+                            // Check for duplicate key error (in case of race condition)
+                            if (err.code === 11000 && err.keyPattern && err.keyPattern.email) {
+                                return res.status(409).send({ message: "User with this email already exists" });
+                            }
+                            res.status(500).send({ message: "Error registering user" });
+                        }
+                    } else {
+                        console.error('Password hashing error:', err);
+                        res.status(500).send({ message: "Error processing registration" });
+                    }
+                })
+            } else {
+                console.error('Salt generation error:', err);
+                res.status(500).send({ message: "Error processing registration" });
+            }
+        })
+    } catch (err) {
+        console.error('Error checking existing user:', err);
+        res.status(500).send({ message: "Server error" });
+    }
 
 
-    //     .then((data) => {  
-    //         res.status(201).send({message:"user registered"})
-    //     })
-    //     .catch((error) => {
-    //         console.error('Error registering user:', error);
-    //         res.status(500).send({message:"Error registering user"});
-    //     });
 })
 
 app.post("/login", async (req, res) => {

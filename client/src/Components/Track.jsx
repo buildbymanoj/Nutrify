@@ -70,27 +70,22 @@ export default function Track() {
                     </button>
                 )}
 
+                {(foodItems.length !== 0) ? (
+                    <div className="search-item">
+                        {
+                            foodItems.map((item) => {
+                                return (
+                                    <p className="item" onClick={() => {
+                                        setfood(item);
+                                        setfoodItems([]); // Clear items
+                                        setSearchValue(""); // Clear input
+                                    }} key={item._id}>{item.name}</p>
+                                )
+                            })
+                        }
+                    </div>
+                ) : null}
             </div>
-            {
-
-                (foodItems.length !== 0) ?
-                    (
-                        <div className="search-item">
-                            {
-                                foodItems.map((item) => {
-                                    return (
-                                        <p className="item" onClick={() => {
-                                            setfood(item);
-                                            setfoodItems([]); // Clear items
-                                            setSearchValue(""); // Clear input
-                                        }} key={item._id}>{item.name}</p>
-                                    )
-                                })
-                            }
-
-                        </div>) : null
-
-            }
             {food !== null ?
                 <Food food={food} /> : null
             }
