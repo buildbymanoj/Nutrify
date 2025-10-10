@@ -78,6 +78,16 @@ export default function Diet() {
                     className="date-input"
                 />
             </div>
+            
+            <div className="diet-item total-item">
+                <h2>Daily Total: {total.totalCalories.toFixed(2)} kcal</h2>
+                <p>
+                    <span>Protein: {total.totalProtein.toFixed(2)} g</span>
+                    <span>Fat: {total.totalFat.toFixed(2)} g</span>
+                    <span>Carbs: {total.totalCarbs.toFixed(2)} g</span>
+                    <span>Fiber: {total.totalFiber.toFixed(2)} g</span>
+                </p>
+            </div>
 
             {
                 items.map((item) => {
@@ -98,15 +108,6 @@ export default function Diet() {
                 })
             }
 
-            <div className="diet-item total-item">
-                <h2>Daily Total: {total.totalCalories} kcal</h2>
-                <p>
-                    <span>Protein: {total.totalProtein} g</span>
-                    <span>Fat: {total.totalFat} g</span>
-                    <span>Carbs: {total.totalCarbs} g</span>
-                    <span>Fiber: {total.totalFiber} g</span>
-                </p>
-            </div>
         </section>
     )
 }

@@ -11,6 +11,7 @@ require('dotenv').config();
 
 const verifyToken = require('./models/verifyToken')
 const server = process.env.MONGO_URI;
+const jwt_sign=process.env.JWT_SIGN;
 const PORT = process.env.PORT || 8000;
 
 
@@ -47,7 +48,21 @@ app.post("/register", async (req, res) => {
 
                         try {
                             let doc = await userModel.create(user)
-                            res.status(201).send({ message: "user registered" })
+                            
+                            // Generate authentication token for immediate login after registration
+                            jwt.sign({ email: user.email }, jwt_sign, (err, token) => {
+                                if (!err) {
+                                    res.status(201).send({ 
+                                        message: "User registered successfully", 
+                                        token: token, 
+                                        userid: doc._id, 
+                                        name: doc.name 
+                                    });
+                                } else {
+                                    // If token generation fails, still register but require login
+                                    res.status(201).send({ message: "User registered successfully" });
+                                }
+                            })
                         }
                         catch (err) {
                             console.error('Error registering user:', err);
@@ -84,7 +99,7 @@ app.post("/login", async (req, res) => {
         if (user !== null) {
             bcrypt.compare(userCred.password, user.password, (err, success) => {
                 if (success == true) {
-                    jwt.sign({ email: userCred.email }, "nutrify", (err, token) => {
+                    jwt.sign({ email: userCred.email }, jwt_sign, (err, token) => {
                         if (!err) {
                             res.send({ message: "Login Success", token: token, userid: user._id, name: user.name });
                         }

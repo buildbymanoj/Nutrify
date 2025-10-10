@@ -95,7 +95,7 @@ export default function Calculator() {
 
                 {/* Calorie Calculator */}
                 <div className="calculator-section">
-                    <h2>Calorie Calculator (Mifflin-St Jeor)</h2>
+                    <h2>Calorie Calculator</h2>
                     <form onSubmit={calcCalories} style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                         <input className="inp" name="age" placeholder="Age (years)" value={calInputs.age} onChange={handleCalChange} />
                         <select name="gender" value={calInputs.gender} onChange={handleCalChange} className="inp gender">

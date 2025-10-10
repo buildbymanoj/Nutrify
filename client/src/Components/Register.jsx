@@ -1,13 +1,15 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom'
+import { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from '../Contexts/UserContext';
 function Register() {
+    const { setLoggedUser } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const [UserDetails, SetUserDetails] = useState({
         name: '',
         email: '',
         password: '',
         age: ''
-
     })
 
     const [Message, setMessage] = useState({
@@ -28,6 +30,8 @@ function Register() {
         console.log(UserDetails);
 
 
+        const creds = { email: UserDetails.email, password: UserDetails.password };
+
         fetch(`${import.meta.env.VITE_API_URL}/register`, {
             method: "POST",
             body: JSON.stringify(UserDetails),
@@ -38,7 +42,42 @@ function Register() {
             .then(async (response) => {
                 const data = await response.json().catch(() => ({}));
                 if (response.ok) {
-                    setMessage({ type: "Success", text: data.message || 'Registered successfully' });
+                    // Set success message
+                    setMessage({ type: "Success", text: data.message || 'Registered successfully! Redirecting...' });
+                    
+                    const finalizeLogin = (userData) => {
+                        localStorage.setItem("nutrify-user", JSON.stringify(userData));
+                        setLoggedUser(userData);
+                        setTimeout(() => {
+                            navigate('/track');
+                        }, 1000);
+                    };
+
+                    if (data.token) {
+                        finalizeLogin(data);
+                    } else {
+                        // Auto-login if register response doesn't include auth payload
+                        fetch(`${import.meta.env.VITE_API_URL}/login`, {
+                            method: "POST",
+                            body: JSON.stringify(creds),
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        })
+                            .then(async (loginResponse) => {
+                                const loginData = await loginResponse.json().catch(() => ({}));
+                                if (loginResponse.ok && loginData.token) {
+                                    finalizeLogin(loginData);
+                                } else {
+                                    setMessage({ type: "error", text: loginData.message || 'Registration succeeded but auto-login failed. Please login manually.' });
+                                }
+                            })
+                            .catch(() => {
+                                setMessage({ type: "error", text: 'Registration succeeded but auto-login failed. Please login manually.' });
+                            });
+                    }
+                    
+                    // Reset form fields after attempting auto-login
                     SetUserDetails({ name: '', email: '', password: '', age: '' });
                 } else {
                     // show server-provided message when available, otherwise fallback

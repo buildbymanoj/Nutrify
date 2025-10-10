@@ -39,12 +39,15 @@ function Login() {
             .then(async (response) => {
                 const data = await response.json().catch(() => ({}));
                 if (response.ok) {
-                    setMessage({ type: "Success", text: data.message || 'Login Successful' });
-                    // store and navigate
+                    setMessage({ type: "Success", text: data.message || 'Login Successful! Redirecting...' });
+                    // store and navigate after showing success message
                     if (data.token !== undefined) {
                         localStorage.setItem("nutrify-user", JSON.stringify(data));
                         setLoggedUser(data);
-                        navigate('/track');
+                        // Add delay before navigation to show success message
+                        setTimeout(() => {
+                            navigate('/track');
+                        }, 1500); // 1.5 seconds delay
                     }
                 } else {
                     // Map known status codes to messages, otherwise use server message
@@ -57,9 +60,13 @@ function Login() {
                     }
                 }
 
-                setTimeout(() => {
-                    setMessage({ type: "invisible-msg", text: "dummy" })
-                }, 5000);
+                // For error messages only, clear after 5 seconds
+                // Success messages will be cleared by navigation after 1.5 seconds
+                if (!response.ok) {
+                    setTimeout(() => {
+                        setMessage({ type: "invisible-msg", text: "dummy" })
+                    }, 5000);
+                }
             })
             .catch((err) => {
                 console.log(err);
