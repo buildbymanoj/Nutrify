@@ -41,6 +41,9 @@ export default function Food(props) {
     }
 
     function TrackFoodItem() {
+        const today = new Date();
+        const formattedDate = today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear();
+        
         let trackedItem = {
             userId: LoggedData.loggedUser.userid,
             foodid: food._id,
@@ -51,7 +54,8 @@ export default function Food(props) {
                 fiber: food.fiber,
                 calories: food.calories
             },
-            quantity: Eatenquantity
+            quantity: Eatenquantity,
+            eatenDate: formattedDate
 
 
 
@@ -85,7 +89,7 @@ export default function Food(props) {
     return (
         <div className="food">
             <div className="food-img">
-                {/* <img className="food-image" src={food.imageUrl} alt={food.name} /> */}
+                <img className="food-image" src={food.imageUrl} alt={food.name} />
 
 
             </div>

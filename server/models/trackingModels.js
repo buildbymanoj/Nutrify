@@ -28,7 +28,10 @@ const trackingSchema = mongoose.Schema({
 
     eatenDate: {
         type: String,
-        default: new Date().toLocaleDateString()
+        default: function() {
+            const date = new Date();
+            return date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+        }
     }
 }, { timestamps: true })
 

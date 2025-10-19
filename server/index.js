@@ -56,7 +56,8 @@ app.post("/register", async (req, res) => {
                                         message: "User registered successfully", 
                                         token: token, 
                                         userid: doc._id, 
-                                        name: doc.name 
+                                        name: doc.name,
+                                        email: doc.email
                                     });
                                 } else {
                                     // If token generation fails, still register but require login
@@ -101,7 +102,7 @@ app.post("/login", async (req, res) => {
                 if (success == true) {
                     jwt.sign({ email: userCred.email }, jwt_sign, (err, token) => {
                         if (!err) {
-                            res.send({ message: "Login Success", token: token, userid: user._id, name: user.name });
+                            res.send({ message: "Login Success", token: token, userid: user._id, name: user.name, email: user.email });
                         }
                     })
                 }
