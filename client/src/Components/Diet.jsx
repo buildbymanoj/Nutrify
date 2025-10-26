@@ -29,7 +29,7 @@ export default function Diet() {
             .then((response) => response.json())
             .then((data) => {
                 // console.log(data);
-                setFoods(data);
+                setitems(data);
             })
             .catch((err) => {
                 // console.log(err);
