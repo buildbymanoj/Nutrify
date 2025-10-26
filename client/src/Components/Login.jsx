@@ -69,7 +69,7 @@ function Login() {
                 }
             })
             .catch((err) => {
-                console.log(err);
+                // console.log(err);
                 setMessage({ type: "error", text: "Network error. Please try again." });
                 setTimeout(() => {
                     setMessage({ type: "invisible-msg", text: "dummy" })

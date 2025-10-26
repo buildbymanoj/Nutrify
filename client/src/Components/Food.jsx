@@ -61,7 +61,7 @@ export default function Food(props) {
 
 
         }
-        console.log(trackedItem);
+        // console.log(trackedItem);
         fetch(`${import.meta.env.VITE_API_URL}/track`, {
             method: "POST",
             body: JSON.stringify(trackedItem),
@@ -74,12 +74,12 @@ export default function Food(props) {
         )
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
+                // console.log(data);
                 setTrackMessage("✓ Added successfully!");
                 setTimeout(() => setTrackMessage(""), 3000); // Clear message after 3 seconds
             })
             .catch((err) => {
-                console.log(err);
+                // console.log(err);
                 setTrackMessage("✗ Failed to add. Try again.");
                 setTimeout(() => setTrackMessage(""), 3000);
             })

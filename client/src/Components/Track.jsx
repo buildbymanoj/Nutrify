@@ -34,7 +34,7 @@ export default function Track() {
 
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data);
+                    // console.log(data);
                     if (data.message === undefined) {
                         setfoodItems(data);
                     }
@@ -43,7 +43,7 @@ export default function Track() {
                     }
                 })
                 .catch((err) => {
-                    console.log(err)
+                    // console.log(err)
                 })
         }
         else {

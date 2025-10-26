@@ -27,7 +27,7 @@ function Register() {
 
     function handleSubmit(event) {
         event.preventDefault();
-        console.log(UserDetails);
+        // console.log(UserDetails);
 
 
         const creds = { email: UserDetails.email, password: UserDetails.password };
@@ -90,7 +90,7 @@ function Register() {
                 }, 5000);
             })
             .catch((err) => {
-                console.log(err);
+                // console.log(err);
                 setMessage({ type: "error", text: "Network error. Please try again." });
                 setTimeout(() => {
                     setMessage({ type: "invisible-msg", text: "dummy" })

@@ -28,11 +28,11 @@ export default function Diet() {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
-                setitems(data);
+                // console.log(data);
+                setFoods(data);
             })
             .catch((err) => {
-                console.log(err);
+                // console.log(err);
             })
     }, [date])
 

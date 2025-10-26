@@ -27,19 +27,19 @@ A comprehensive full-stack nutrition tracking and health calculator application 
 
 ### Frontend (`/client`)
 - **React 19.1.1** - Modern JavaScript library for building user interfaces
-- **Vite** - Lightning-fast build tool and development server
+- **Vite ^7.1.7** - Lightning-fast build tool and development server
 - **React Router 7.9.1** - Declarative routing for React applications
 - **CSS Variables** - Dynamic theming system with custom properties
-- **GSAP** - Animation library for smooth theme transitions
+- **GSAP 3.13.0** - Animation library for smooth theme transitions
 
 ### Backend (`/server`)
 - **Node.js** - JavaScript runtime for server-side development
-- **Express.js** - Fast, unopinionated web framework
-- **MongoDB** - NoSQL database for flexible data storage
-- **Mongoose** - Elegant MongoDB object modeling
-- **JWT** - Secure token-based authentication
-- **bcryptjs** - Password hashing for security
-- **CORS** - Cross-origin resource sharing support
+- **Express.js 5.1.0** - Fast, unopinionated web framework
+- **MongoDB 6.20.0** - NoSQL database for flexible data storage
+- **Mongoose 8.17.1** - Elegant MongoDB object modeling
+- **JWT 9.0.2** - Secure token-based authentication
+- **bcryptjs 3.0.2** - Password hashing for security
+- **CORS 2.8.5** - Cross-origin resource sharing support
 
 ## 📁 Project Structure
 
@@ -48,16 +48,21 @@ nutrify/
 ├── client/                     # React frontend application
 │   ├── src/
 │   │   ├── Components/         # Reusable React components
+│   │   │   ├── AnimatedThemeToggle.jsx # Theme toggle component
 │   │   │   ├── Calculator.jsx  # BMI & Calorie calculators
+│   │   │   ├── Diet.jsx        # Diet component
 │   │   │   ├── Food.jsx        # Food tracking component
 │   │   │   ├── Header.jsx      # Navigation with theme toggle
 │   │   │   ├── Login.jsx       # User authentication
+│   │   │   ├── Notfound.jsx    # 404 page
+│   │   │   ├── Private.jsx     # Private route component
 │   │   │   ├── Register.jsx    # User registration
-│   │   │   ├── Track.jsx       # Food search and tracking
-│   │   │   └── ...
+│   │   │   └── Track.jsx       # Food search and tracking
 │   │   ├── Contexts/           # React Context providers
 │   │   │   ├── UserContext.jsx # User state management
 │   │   │   └── ThemeContext.jsx # Theme state management
+│   │   ├── styles/             # CSS styles
+│   │   │   └── ThemeToggle.css # Theme toggle styles
 │   │   ├── App.jsx             # Main app with routing
 │   │   ├── App.css             # Global styles with themes
 │   │   └── main.jsx            # React application entry point
@@ -71,8 +76,7 @@ nutrify/
 │   │   └── verifyToken.js      # JWT verification middleware
 │   ├── index.js                # Express server with API routes
 │   └── package.json
-├── README.md
-└── package.json
+└── README.md
 ```
 
 ## 🚦 Getting Started
