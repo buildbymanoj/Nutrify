@@ -19,8 +19,13 @@ export default function Diet() {
     useEffect(() => {
 
         // console.log(LoggedData);
+        
+        // Format date with leading zeros for single-digit day/month
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
 
-        fetch(`${import.meta.env.VITE_API_URL}/track/${LoggedData.loggedUser.userid}/${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`, {
+        fetch(`${import.meta.env.VITE_API_URL}/track/${LoggedData.loggedUser.userid}/${year}-${month}-${day}`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${LoggedData.loggedUser.token}`

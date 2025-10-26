@@ -42,7 +42,7 @@ export default function Food(props) {
 
     function TrackFoodItem() {
         const today = new Date();
-        const formattedDate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+        const formattedDate = today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear();
         
         let trackedItem = {
             userId: LoggedData.loggedUser.userid,
