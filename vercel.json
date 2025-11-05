@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server/index.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "client/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "server/index.js"
+    },
+    {
+      "src": "/register",
+      "dest": "server/index.js"
+    },
+    {
+      "src": "/login",
+      "dest": "server/index.js"
+    },
+    {
+      "src": "/google-auth",
+      "dest": "server/index.js"
+    },
+    {
+      "src": "/foods(.*)",
+      "dest": "server/index.js"
+    },
+    {
+      "src": "/track(.*)",
+      "dest": "server/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "client/dist/index.html"
+    }
+  ]
+}

@@ -3,6 +3,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
+const path = require('path');
 const userModel = require('./models/userModels')
 const foodModel = require('./models/foodModels')
 const trackingModel = require('./models/trackingModels')
@@ -30,6 +31,9 @@ app = express();
 
 app.use(express.json());
 app.use(cors());
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // Initialize Google OAuth Client
 const client = new OAuth2Client(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET);
@@ -300,6 +304,12 @@ app.get("/track/:user/:date", async (req, res) => {
         res.status(500).send({ message: "some problem while getting the food data" })
     }
 })
+
+// Catch-all route to serve React app for client-side routing
+// This MUST be the last route
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+});
 
 
 app.listen(PORT, () => {
