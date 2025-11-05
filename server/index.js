@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
 const path = require('path');
+const fs = require('fs');
 const userModel = require('./models/userModels')
 const foodModel = require('./models/foodModels')
 const trackingModel = require('./models/trackingModels')
@@ -32,8 +33,18 @@ app = express();
 app.use(express.json());
 app.use(cors());
 
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, '../client/dist')));
+// Determine the correct path to the client dist folder
+const clientDistPath = path.join(__dirname, '../client/dist');
+console.log('Looking for client build at:', clientDistPath);
+console.log('Client dist exists:', fs.existsSync(clientDistPath));
+
+// Serve static files from the React app if it exists
+if (fs.existsSync(clientDistPath)) {
+    app.use(express.static(clientDistPath));
+    console.log('Serving static files from:', clientDistPath);
+} else {
+    console.warn('Warning: Client dist folder not found at', clientDistPath);
+}
 
 // Initialize Google OAuth Client
 const client = new OAuth2Client(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET);
@@ -308,7 +319,16 @@ app.get("/track/:userid/:date", async (req, res) => {
 // Catch-all route to serve React app for client-side routing
 // This MUST be the last route
 app.get(/^\/(?!api|google-auth|register|login|foods|track).*/, (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+    const indexPath = path.join(__dirname, '../client/dist', 'index.html');
+    if (fs.existsSync(indexPath)) {
+        res.sendFile(indexPath);
+    } else {
+        res.status(503).send({ 
+            message: "Client application not built. Please run 'npm run build' in the client directory.",
+            path: indexPath,
+            exists: fs.existsSync(path.join(__dirname, '../client/dist'))
+        });
+    }
 });
 
 

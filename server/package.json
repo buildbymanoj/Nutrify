@@ -7,7 +7,8 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "build": "cd ../client && npm install && npm run build",
-    "render-build": "npm install && npm run build"
+    "render-build": "npm install && npm run build",
+    "verify": "node verify-build.js"
   },
   "author": "Manoj",
   "license": "ISC",
