@@ -307,7 +307,7 @@ app.get("/track/:user/:date", async (req, res) => {
 
 // Catch-all route to serve React app for client-side routing
 // This MUST be the last route
-app.get('*', (req, res) => {
+app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
 
