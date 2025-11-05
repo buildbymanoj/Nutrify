@@ -288,8 +288,8 @@ app.post("/track", verifyToken, async (req, res) => {
     }
 })
 
-app.get("/track/:user/:date", async (req, res) => {
-    let userid = req.params.user;
+app.get("/track/:userid/:date", async (req, res) => {
+    let userid = req.params.userid;
     let date = new Date(req.params.date);
     let strDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
 
@@ -307,7 +307,7 @@ app.get("/track/:user/:date", async (req, res) => {
 
 // Catch-all route to serve React app for client-side routing
 // This MUST be the last route
-app.get('/*', (req, res) => {
+app.get(/^\/(?!api|google-auth|register|login|foods|track).*/, (req, res) => {
     res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
 
