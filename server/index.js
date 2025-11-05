@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { OAuth2Client } = require('google-auth-library');
 const userModel = require('./models/userModels')
 const foodModel = require('./models/foodModels')
 const trackingModel = require('./models/trackingModels')
@@ -11,8 +12,10 @@ require('dotenv').config();
 
 const verifyToken = require('./models/verifyToken')
 const server = process.env.MONGO_URI;
-const jwt_sign=process.env.JWT_SIGN;
+const jwt_sign = process.env.JWT_SIGN;
 const PORT = process.env.PORT || 8000;
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 
 
 mongoose.connect(server)
@@ -28,6 +31,120 @@ app = express();
 app.use(express.json());
 app.use(cors());
 
+// Initialize Google OAuth Client
+const client = new OAuth2Client(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET);
+
+// Google Authentication Endpoint
+app.post("/google-auth", async (req, res) => {
+    try {
+        const { token } = req.body;
+        
+        if (!token) {
+            return res.status(400).send({ message: "Token is required" });
+        }
+        
+        // Check if it's an ID token (JWT format) or access token
+        if (token.startsWith('ya29.')) {
+            // It's an access token, fetch user info from Google
+            const userInfoResponse = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            
+            if (!userInfoResponse.ok) {
+                throw new Error('Failed to fetch user info from Google');
+            }
+            
+            const userInfo = await userInfoResponse.json();
+            const { email, name, id: googleId } = userInfo;
+            
+            // Check if user exists
+            let user = await userModel.findOne({ email });
+            
+            if (!user) {
+                // Create new user
+                user = await userModel.create({
+                    name,
+                    email,
+                    googleId,
+                    isGoogleAuth: true,
+                    age: 25  // Default age for Google auth users
+                });
+            } else if (!user.googleId) {
+                // Update existing user with Google ID
+                user = await userModel.findByIdAndUpdate(
+                    user._id,
+                    { googleId, isGoogleAuth: true },
+                    { new: true }
+                );
+            }
+            
+            // Generate JWT token
+            jwt.sign({ email }, jwt_sign, (err, authToken) => {
+                if (!err) {
+                    res.status(200).send({
+                        message: "Google authentication successful",
+                        token: authToken,
+                        userid: user._id,
+                        name: user.name,
+                        email: user.email
+                    });
+                } else {
+                    res.status(500).send({ message: "Token generation failed" });
+                }
+            });
+        } else {
+            // It's an ID token, verify with Google
+            const ticket = await client.verifyIdToken({
+                idToken: token,
+                audience: GOOGLE_CLIENT_ID
+            });
+            
+            const payload = ticket.getPayload();
+            const { email, name, sub: googleId } = payload;
+            
+            // Check if user exists
+            let user = await userModel.findOne({ email });
+            
+            if (!user) {
+                // Create new user
+                user = await userModel.create({
+                    name,
+                    email,
+                    googleId,
+                    isGoogleAuth: true,
+                    age: 25  // Default age for Google auth users
+                });
+            } else if (!user.googleId) {
+                // Update existing user with Google ID
+                user = await userModel.findByIdAndUpdate(
+                    user._id,
+                    { googleId, isGoogleAuth: true },
+                    { new: true }
+                );
+            }
+            
+            // Generate JWT token
+            jwt.sign({ email }, jwt_sign, (err, authToken) => {
+                if (!err) {
+                    res.status(200).send({
+                        message: "Google authentication successful",
+                        token: authToken,
+                        userid: user._id,
+                        name: user.name,
+                        email: user.email
+                    });
+                } else {
+                    res.status(500).send({ message: "Token generation failed" });
+                }
+            });
+        }
+    } catch (error) {
+        console.error("Google Auth Error:", error);
+        res.status(401).send({ message: "Invalid or expired token" });
+    }
+});
 
 app.post("/register", async (req, res) => {
     let user = req.body;

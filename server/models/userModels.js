@@ -12,10 +12,19 @@ const UserSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
-    }, age: {
+        required: false
+    },
+    age: {
         type: Number,
-        required: true
+        required: false
+    },
+    googleId: {
+        type: String,
+        required: false
+    },
+    isGoogleAuth: {
+        type: Boolean,
+        default: false
     }
 })
 

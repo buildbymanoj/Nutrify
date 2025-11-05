@@ -1451,3 +1451,95 @@ a:hover::after {
         min-width: 320px;
     }
 }
+
+/* Google Authentication Button Styles */
+.google-btn {
+    font-weight: 600;
+    background-color: #FFFFFF;
+    color: #3C4043;
+    cursor: pointer;
+    padding: 12px 24px;
+    min-width: 120px;
+    text-align: center;
+    border-radius: 8px;
+    border: 1px solid #DADCE0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.google-btn:hover {
+    background-color: #F8F9FA;
+    border-color: #C6C6C6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.google-btn:active {
+    background-color: #F1F3F4;
+}
+
+/* Dark theme adjustments for Google button */
+.theme-dark .google-btn {
+    background-color: #FFFFFF;
+    color: #3C4043;
+    border-color: #DADCE0;
+}
+
+.theme-dark .google-btn:hover {
+    background-color: #F8F9FA;
+    border-color: #C6C6C6;
+}
+
+.theme-dark .google-btn:active {
+    background-color: #F1F3F4;
+}
+
+/* Light theme adjustments for Google button */
+.theme-light .google-btn {
+    background-color: #FFFFFF;
+    color: #3C4043;
+    border-color: #DADCE0;
+}
+
+.theme-light .google-btn:hover {
+    background-color: #F8F9FA;
+    border-color: #C6C6C6;
+}
+
+.theme-light .google-btn:active {
+    background-color: #F1F3F4;
+}
+
+/* Divider for Google/Email authentication separation */
+.divider {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: var(--border-color);
+}
+
+.divider::before {
+    margin-right: 10px;
+}
+
+.divider::after {
+    margin-left: 10px;
+}

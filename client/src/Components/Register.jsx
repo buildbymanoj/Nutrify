@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../Contexts/UserContext';
+import GoogleAuth from './GoogleAuth';
 function Register() {
     const { setLoggedUser } = useContext(UserContext);
     const navigate = useNavigate();
@@ -122,6 +123,11 @@ function Register() {
                 <input type="number" name="age" placeholder="Enter age" onChange={handleInput} value={UserDetails.age} required max={100} min={10}
                     className="inp" />
                 <button className="btn">JOIN</button>
+                
+                <div className="divider">OR</div>
+                
+                <GoogleAuth onMessage={setMessage} buttonText="Sign up with Google" />
+                
                 <p>Already Registered? <Link to='/login'>Login</Link></p>
                 <p className={Message.type}>{Message.text}</p>
             </form>

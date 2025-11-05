@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../Contexts/UserContext";
 import { Link, useNavigate } from "react-router-dom";
+import GoogleAuth from "./GoogleAuth";
 
 function Login() {
 
@@ -89,6 +90,11 @@ function Login() {
                     <input type="password" name="password" placeholder="Enter password" required onChange={handleInput} value={userCreds.password}
                         className="inp" />
                     <button className="btn">LOGIN</button>
+                    
+                    <div className="divider">OR</div>
+                    
+                    <GoogleAuth onMessage={setMessage} buttonText="Sign in with Google" />
+                    
                     <p>Not Registered Yet? <Link to='/register'>Register</Link></p>
                     <p className={Message.type}>{Message.text}</p>
                 </form>
